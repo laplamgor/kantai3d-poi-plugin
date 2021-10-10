@@ -6,7 +6,7 @@ const path = require('path');
 
 // Only block the main.js when the request has version number query (by original code)
 // Do not block the main.js when the request has no version number query (by patcher)
-const filter = { urls: ['http://*/kcs2/js/main.js*'] };
+const filter = { urls: ['http://*/kcs2/js/main.js?*'] };
 
 
 
