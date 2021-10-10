@@ -20,7 +20,20 @@ If you cannot install it from cnpm server, please try npmjs(US).
 npmjs package name: https://www.npmjs.com/package/poi-plugin-kantai3d
 
 
-# Note
+# Compatibility
 This plugin is tested with both Direct DMM connection and OOI. 
 
 Since this MOD requires patching of the game client (main.js), the local caching feature of the game client will not take place. Refreshing game may take a bit longer and cost more data usage. it is recommended to disable this plugin during events.
+
+
+# Disclaimer
+Kantai3D is not an officially approved program. Using it may be aganist the Terms of Service of DMM.
+
+Kantai3D modifies your local game client (main.js) in order to achieve the visual effects but does not modify any ingame API request and response. It does not affect your noraml gameplay or game balance. 
+
+Please use it at your own risk. 
+
+
+This mod alone, does not include any data from the origin game. All depth maps used are also 100% hand-drawn. 
+
+If you have any questions or queries, please contact me at laplamgor@gmail.com
