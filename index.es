@@ -25,6 +25,9 @@ export const
         session.defaultSession.protocol.interceptFileProtocol('k3d', (request, callback) => {
             callback({ path: path.join(__dirname, "main.js") })
         })
+
+        // force to refresh the webview to avoid loading page before plugin
+        window.getStore('layout.webview.ref').reloadIgnoringCache()
     },
     pluginWillUnload = (e) => {
         session.defaultSession.webRequest.onBeforeRequest(filter, null);

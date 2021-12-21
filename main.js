@@ -49,8 +49,10 @@ window.portOffsetR = window.charar;//r
 window.displacementSprite = PIXI.Sprite.fromImage(window.displacementPath.replace(/resources\\/ship\\/full[_dmg]*\\/([0-9]*)_([0-9_a-z]*).png(\\?version=)?([0-9]*)/g, \"https://cdn.jsdelivr.net/gh/laplamgor/kantai3d-depth-maps@master/source/$$1/$$1_$$2_v$$4.png\"));
 window.displacementFilter = PIXI.DepthPerspectiveFilter;
 
-window.displacementFilter.uniforms.textureWidth = this._chara.texture.width;
-window.displacementFilter.uniforms.textureHeight = this._chara.texture.height;
+window.displacementFilter.uniforms.textureSize = {
+  0: this._chara.texture.width,
+  1: this._chara.texture.height
+};
 
 window.displacementSprite.visible = false;
 
@@ -59,6 +61,7 @@ window.displacementFilter.padding = 150;
 window.currentChara = this._chara;
 
 if (window.displacementSprite.width != 1) {
+    console.log('The depth map for this secretary is already loaded.');
     // The depth map is already loaded
     window.displacementFilter.uniforms.displacementMap = window.displacementSprite.texture;
     window.displacementFilter.uniforms.scale = 1.0;
@@ -77,6 +80,8 @@ if (window.displacementSprite.width != 1) {
     this._chara.filters = [];
     window.currentChara.filters = [];
     window.displacementSprite.texture.baseTexture.on('loaded', function(){
+
+        console.log('The depth map for this secretary is now loaded.');
         // Re-enable the filter when resource loaded
         window.displacementFilter.uniforms.displacementMap = window.displacementSprite.texture;
         window.displacementFilter.uniforms.scale = 1.0;
@@ -90,6 +95,10 @@ if (window.displacementSprite.width != 1) {
         prepareJiggle(window.currentChara.texture, window.displacementSprite.texture);
         window.displacementFilter.uniforms.displacementMap = window.jiggledDepthMapRT.texture;
     });
+
+    window.displacementSprite.texture.baseTexture.on('error', function(){
+        console.log('The depth map for this secretary is not available. Please visit https://github.com/laplamgor/kantai3d to check the supported CG list and consider to contribute your own depth map.');
+    })
 }
 
 
@@ -104,8 +113,8 @@ function prepareJiggle(baseMap, depthMap) {
     window.jiggleStaticFlags = [];
     window.jiggleMovement = [];
 
-    window.damping = [];//1.0 / 8; // 1 2 4 8 16 
-    window.springiness = [];//1.0 / 16.0; // 0 2 4 8 16 32 回彈力
+    window.damping = [];
+    window.springiness = [];
     
 
     var depthImg = depthMap.baseTexture.source;
@@ -146,8 +155,8 @@ function prepareJiggle(baseMap, depthMap) {
             var r = dmData[(Math.floor(y * window.gridH) * baseMap.width + Math.floor(x * window.gridW)) * 4 + 0];
             var b = dmData[(Math.floor(y * window.gridH) * baseMap.width + Math.floor(x * window.gridW)) * 4 + 2];
 
-            window.damping.push(1.0 / (b / 255.0 * 16.0 + 1));//1.0 / 8; // 1 2 4 8 16 
-            window.springiness.push(1.0 / ( b / 255.0 * 32.0 + 1));//1.0 / 16.0; // 0 2 4 8 16 32 回彈力
+            window.damping.push(1.0 / (b / 255.0 * 16.0 + 1));
+            window.springiness.push(1.0 / ( b / 255.0 * 32.0 + 1));
         
 
             window.jiggleStaticFlags.push(b == 0);
@@ -193,16 +202,24 @@ window.displacementFilter.uniforms.textureScale = this.scale.x;
     
     PIXI.DepthPerspectiveFilter.apply = function(filterManager, input, output)
     {
-      this.uniforms.dimensions = {};
-      this.uniforms.dimensions[0] = input.sourceFrame.width;
-      this.uniforms.dimensions[1] = input.sourceFrame.height;
-    
+      this.uniforms.dimensions = {
+        0: input.sourceFrame.width,
+        1: input.sourceFrame.height
+      };
+
       this.uniforms.padding = this.padding;
       
-      this.uniforms.frameWidth = input.size.width;
-      this.uniforms.frameHeight = input.size.height;
-    
-    
+      this.uniforms.frameSize = { 
+        0: input.size.width, 
+        1: input.size.height
+      };
+
+      this.uniforms.filterAreaOffset = { 
+        0: Math.min(window.currentChara.worldTransform.tx, 0.0), 
+        1: Math.min(window.currentChara.worldTransform.ty, 0.0)
+      };
+
+
       //////// mouse
       var mousex2 = (window.pixiApp.renderer.plugins.interaction.mouse.global.x);
       var mousey2 = (window.pixiApp.renderer.plugins.interaction.mouse.global.y);
@@ -399,16 +416,14 @@ window.displacementFilter.uniforms.textureScale = this.scale.x;
 let frag = `precision mediump float;
 uniform vec2 offset;
 
-
 uniform sampler2D uSampler;
 uniform sampler2D displacementMap;
 
 uniform float textureScale;
 
-uniform float textureWidth;
-uniform float textureHeight;
-uniform float frameWidth;
-uniform float frameHeight;
+uniform vec2 textureSize;
+uniform vec2 frameSize;
+uniform vec2 filterAreaOffset;
 
 uniform float padding;
 uniform vec4 filterArea;
@@ -425,14 +440,7 @@ uniform float focus;
 
 vec2 mapCoordDepth(vec2 coord)
 {
-    return vec2((coord[0] * frameWidth - padding) / textureWidth / textureScale,
-                (coord[1] * frameHeight - padding) / textureHeight / textureScale);
-}
-
-vec2 mapCoord2(vec2 coord)
-{
-    return vec2(coord[0] * frameWidth / textureWidth / textureScale,
-                coord[1] * frameHeight / textureHeight / textureScale);
+    return (coord * (frameSize) - filterAreaOffset - padding) / textureSize / textureScale;
 }
 
 const float compression = 1.0;
