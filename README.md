@@ -9,9 +9,9 @@ This is a poi plugin for patching the game client to enable Kantai3D
 # Install via in-app npm
 It is recommended to download this plugin from in-app plugin manager whenever possible.
 
-Simply type-in `poi-plugin-kantai3d` and click install.
+Simply type in `poi-plugin-kantai3d` and click install.
 
-If you cannot install it from cnpm server, please try npmjs(US).
+If you cannot install it from the cnpm server, please try npmjs(US).
 
 ![image](https://user-images.githubusercontent.com/11514317/136703323-31e69f8f-0c28-456d-8858-d749b06f8c4f.png)
 
@@ -23,17 +23,17 @@ npmjs package name: https://www.npmjs.com/package/poi-plugin-kantai3d
 # Compatibility
 This plugin is tested with both Direct DMM connection and OOI. 
 
-Since this MOD requires patching of the game client (main.js), the local caching feature of the game client will not take place. Refreshing game may take a bit longer and cost more data usage. it is recommended to disable this plugin during events.
+Since this MOD requires patching of the game client (main.js), the local caching feature of the game client will not take place. Refreshing the game may take a bit longer and cost more data usage. it is recommended to disable this plugin during events.
 
 
 # Disclaimer
-Kantai3D is not an officially approved program. Using it may be aganist the Terms of Service of DMM.
+Kantai3D is not an officially approved program. Using it may be against the Terms of Service of DMM.
 
-Kantai3D modifies your local game client (main.js) in order to achieve the visual effects but does not modify any ingame API request and response. It does not affect your noraml gameplay or game balance. 
+Kantai3D modifies your local game client (main.js) in order to achieve the visual effects but does not modify any in-game API request and response. It does not affect your normal gameplay or game balance. 
 
 Please use it at your own risk. 
 
 
-This mod alone, does not include any data from the origin game. All depth maps used are also 100% hand-drawn. 
+This mod alone does not include any data from the origin game. All depth maps used are also 100% hand-drawn. 
 
 If you have any questions or queries, please contact me at laplamgor@gmail.com
