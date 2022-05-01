@@ -26,6 +26,12 @@ This plugin is tested with both Direct DMM connection and OOI.
 Since this MOD requires patching of the game client (main.js), the local caching feature of the game client will not take place. Refreshing the game may take a bit longer and cost more data usage. it is recommended to disable this plugin during events.
 
 
+⚠️Duo to some [limitation of electron](https://github.com/electron/electron/issues/10478), this plugin conflicts with [poi-plugin-subtitle](https://github.com/kcwikizh/poi-plugin-subtitle). Only one plugin will be effective at a time.
+
+If you want to use both Kantai3D with subtitles, please follow:
+1. disable and re-enable Kantai3D patcher plugin. The game will reload with the Kantai3D patch. 
+2. Once the game is loaded, disable and re-enable the subtitle plugin.
+
 # Disclaimer
 Kantai3D is not an officially approved program. Using it may be against the Terms of Service of DMM.
 
