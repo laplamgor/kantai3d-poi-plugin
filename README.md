@@ -35,7 +35,7 @@ Please only choose one of them to patch your game client.
 
 ⚠️Duo to some [limitation of electron](https://github.com/electron/electron/issues/10478), this plugin conflicts with old versions of [poi-plugin-subtitle](https://github.com/kcwikizh/poi-plugin-subtitle). Please update the subtitle plugin to 1.3.1 or newer.
 
-⚠️If you encounter any wired behavior, immediately stop using the extension and report the issue to me.
+⚠️If you encounter any weird behavior, immediately stop using the extension and report the issue to me.
 
 # Disclaimer
 Kantai3D is not an officially approved program. Using it may be against the Terms of Service of DMM.
