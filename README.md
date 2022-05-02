@@ -1,6 +1,6 @@
 [⬅️ back to top repo](https://github.com/laplamgor/kantai3d)
 
-Other Languages: [繁體中文](https://github.com/laplamgor/kantai3d-chrome-extension/blob/master/README.zh-Hant.md)
+Other Languages: [繁體中文](https://github.com/laplamgor/kantai3d-poi-plugin/blob/master/README.zh-Hant.md)
 
 # Kantai3D poi Plugin ![128](https://user-images.githubusercontent.com/11514317/103167807-40271080-4869-11eb-97b1-db51d5d39a0c.png)
 
