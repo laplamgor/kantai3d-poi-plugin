@@ -6,7 +6,8 @@ Other Languages: [繁體中文](https://github.com/laplamgor/kantai3d-chrome-ext
 
 This is a poi plugin for patching the game client to enable Kantai3D
 
-
+![](https://img.shields.io/npm/v/poi-plugin-kantai3d)
+![](https://img.shields.io/npm/dt/poi-plugin-kantai3d)
 
 # Install via in-app npm
 It is recommended to download this plugin from in-app plugin manager whenever possible.
