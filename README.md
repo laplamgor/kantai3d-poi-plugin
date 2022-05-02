@@ -1,5 +1,7 @@
 [⬅️ back to top repo](https://github.com/laplamgor/kantai3d)
 
+Other Languages: [繁體中文](https://github.com/laplamgor/kantai3d-chrome-extension/blob/master/README.zh-Hant.md)
+
 # Kantai3D poi Plugin ![128](https://user-images.githubusercontent.com/11514317/103167807-40271080-4869-11eb-97b1-db51d5d39a0c.png)
 
 This is a poi plugin for patching the game client to enable Kantai3D
@@ -20,14 +22,20 @@ If you cannot install it from the cnpm server, please try npmjs(US).
 npmjs package name: https://www.npmjs.com/package/poi-plugin-kantai3d
 
 
-# Compatibility
-This plugin is tested with both Direct DMM connection and OOI. 
+# Requirement and Compatibility
+This extension is tested to be compatible with
+* poi 10.8.0+
+* Direction connection to the game server or generic VPN services in general
+* Also work with https://ooi.moe
 
-Since this MOD requires patching of the game client (main.js), the local caching feature of the game client will not take place. Refreshing the game may take a bit longer and cost more data usage. it is recommended to disable this plugin during events.
+⚠️This extension CANNOT be used together with [Kantai3D KCCP Patcher](https://github.com/laplamgor/kantai3d-kccp-patcher). 
+Please only choose one of them to patch your game client.
 
+⚠️This extension may interfere with other local file proxy tools such as KCCP.
 
-⚠️Duo to some [limitation of electron](https://github.com/electron/electron/issues/10478), this plugin conflicts with old versions of [poi-plugin-subtitle](https://github.com/kcwikizh/poi-plugin-subtitle). Please update the subtitle plugin to 1.3.1+.
+⚠️Duo to some [limitation of electron](https://github.com/electron/electron/issues/10478), this plugin conflicts with old versions of [poi-plugin-subtitle](https://github.com/kcwikizh/poi-plugin-subtitle). Please update the subtitle plugin to 1.3.1 or newer.
 
+⚠️If you encounter any wired behavior, immediately stop using the extension and report the issue to me.
 
 # Disclaimer
 Kantai3D is not an officially approved program. Using it may be against the Terms of Service of DMM.
