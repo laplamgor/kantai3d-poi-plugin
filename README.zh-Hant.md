@@ -6,7 +6,8 @@
 
 本 poi 擴展程式可以為遊戲客戶端打上 Kantai3D 補丁，並解除原有刷新率限制。
 
-
+![](https://img.shields.io/npm/v/poi-plugin-kantai3d)
+![](https://img.shields.io/npm/dt/poi-plugin-kantai3d)
 
 # 經 poi 內置 npm 服務器安裝
 建議經 npm 服務器安裝本擴展程式。
