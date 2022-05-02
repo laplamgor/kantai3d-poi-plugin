@@ -35,15 +35,15 @@ npmjs 主頁： https://www.npmjs.com/package/poi-plugin-kantai3d
 
 ⚠️基於 [electron 的一些限制](https://github.com/electron/electron/issues/10478)，本 poi 擴展程式與舊版本的 [poi-plugin-subtitle字幕插件](https://github.com/kcwikizh/poi-plugin-subtitle) 互相衝突。請把字幕插件更新至 1.3.1 或以上
 
-⚠️本擴充功能可能與其他本地代理工具衝突，例如KCCP。
+⚠️本擴充功能可能與其他本地代理工具衝突，例如 KCCP。
 
 如果您遇上奇怪的現象，請立刻停用本擴充功能，並聯絡回報問題。
 
 
 # 免責聲明
-Kantai3D並非官方正式同意使用的程式。使用Kantai3D可能違反DMM遊戲服務使用條款。
+Kantai3D 並非官方正式同意使用的程式。使用 Kantai3D 可能違反 DMM 遊戲服務使用條款。
 
-Kantai3D需要修改本地的遊戲客戶端以達成顯示效果，但不會修改任何遊戲內API收發，不會干預原本的遊戲流程或遊戲平衡。
+Kantai3D 需要修改本地的遊戲客戶端以達成顯示效果，但不會修改任何遊戲內 API 收發，不會干預原本的遊戲流程或遊戲平衡。
 
 請自行承擔使用風險。
 
