@@ -25,27 +25,26 @@ function patchMainJs(contents) {
 
     contents = contents.toString();
 
-    // Change the create.js ticker mode from Timer to to RAF
-    contents = contents.replace(
-        /(createjs(?:\[\w+\('\w+'\)\]){2})\=createjs(?:\[\w+\('\w+'\)\]){2},/g,
-        "$1=createjs.Ticker.RAF,");
-
     contents = contents.replace(/(=.{0,20}\[.{0,20}\('.{0,20}'\)\]\(this\)\|\|this;return (.{0,20}\[.{0,20}\('.{0,20}'\)\]=new PIXI\[\(.{0,20}\('.{0,20}'\)\)\]\(\),){6}.{0,20}\[.{0,20}\('.{0,20}'\)\]=new .{0,20}\(\),.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\(0x4f,0xa4\),)/g,
     `= window.sound_options $1`);
 
     contents = contents.replace(/(=new )(.{0,20})(\(\),.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\(0x5a,0x18e\),)/g,
     `$1$2$3
+
+    window.sound_options._toggle120 = new $2(),
+    window.sound_options._toggle120.position.set(-120, 85),
     window.sound_options._toggle3d = new $2(),
     window.sound_options._toggle3d.position.set(-120, 150),
     window.sound_options._toggle3d_ai = new $2(),
     window.sound_options._toggle3d_ai.position.set(-120, 215),
-    window.sound_options._toggle3d_text = new PIXI.Text('Kantai3D v3.0\\n\\n追加の深度マップ', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 28, fill: '#ffffff'})),
-    window.sound_options._toggle3d_text.position.set(-360, 150),
+    window.sound_options._toggle3d_text = new PIXI.Text('120 FPS\\n\\nKantai3D v3.0\\n\\n追加の深度マップ', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 28, fill: '#ffffff'})),
+    window.sound_options._toggle3d_text.position.set(-360, 88),
     window.sound_options._toggle3d_ai_text = new PIXI.Text('追加の深度マップはAIによって生成され、\\nカスタム手描き深度マップなしでCGに\\nよって使用されます。3D効果の品質は、\\n比較すると粗くなります。\\n\\n変更は、次回母港に戻ったときに有効に\\nなります。', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 18, fill: '#ffffff'})),
     window.sound_options._toggle3d_ai_text.position.set(-360, 290),
     window.sound_options._toggle3d_bg = new PIXI.Graphics(),
     window.sound_options._toggle3d_bg.beginFill(0x202020, 0.8).lineStyle(2, 0xd1b44b, 0.8).drawRect(7-373-15, 56, 373, 413),
     window.sound_options.addChild(window.sound_options._toggle3d_bg),
+    window.sound_options.addChild(window.sound_options._toggle120),
     window.sound_options.addChild(window.sound_options._toggle3d),
     window.sound_options.addChild(window.sound_options._toggle3d_ai),
     window.sound_options.addChild(window.sound_options._toggle3d_text),
@@ -54,12 +53,15 @@ function patchMainJs(contents) {
 
     contents = contents.replace(/(\(0x26,0x18e\),this\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\(0xc6,0x18e\),)/g,
     `$1
+    this._toggle120.initialize(),
     this._toggle3d.initialize(),
     this._toggle3d_ai.initialize(),`);
 
     
     contents = contents.replace(/(function\(\)\{this\[.{0,20}\('.{0,20}'\)\]\(\)(,this\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\(\),this\[.{0,20}\('.{0,20}'\)\]=null){11};)/g,
     `$1
+    this._toggle120.dispose();
+    this._toggle120 = null;
     this._toggle3d.dispose();
     this._toggle3d = null;
     this._toggle3d_ai.dispose();
@@ -67,14 +69,20 @@ function patchMainJs(contents) {
 
         
     contents = contents.replace(/(,.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\(\),0x0==this\[.{0,20}\('.{0,20}'\)\]&&0x0<.{0,20}?.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\(.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\):0x0<this\[.{0,20}\('.{0,20}'\)\]&&0x0)/g,
-    `,window.isDepthEnabled = this._sound._toggle3d.value, 
-    window.isDepthAiEnabled = this._sound._toggle3d_ai.value
+    `,localStorage.setItem('kantai3d.is120Enabled', this._sound._toggle120.value), 
+    localStorage.setItem('kantai3d.isDepthEnabled', this._sound._toggle3d.value), 
+    localStorage.setItem('kantai3d.isDepthAiEnabled', this._sound._toggle3d_ai.value),
+    console.log(localStorage.getItem('kantai3d.is120Enabled'))
+    createjs.Ticker.setFPS((localStorage.getItem('kantai3d.is120Enabled') != 'false') ? 120 : 60)
     $1`);
 
     contents = contents.replace(/((null==this\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]&&\(this\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]=.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\),this\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]=.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\],){2})/g,
     `$1
-    this._toggle3d.value = window.isDepthEnabled != false,
-    this._toggle3d_ai.value = window.isDepthAiEnabled != false,`);
+    this._toggle120.value = localStorage.getItem('kantai3d.is120Enabled') != 'false',
+    this._toggle3d.value = localStorage.getItem('kantai3d.isDepthEnabled') != 'false',
+    this._toggle3d_ai.value = localStorage.getItem('kantai3d.isDepthAiEnabled') != 'false',
+    console.log(createjs.Ticker.timingMode),
+    console.log(createjs.Ticker.framerate),`);
 
     
     
@@ -128,6 +136,8 @@ window.displacementFilter.padding = 150;
 
 window.currentChara = chara;
 
+createjs.Ticker.setFPS((localStorage.getItem('kantai3d.is120Enabled') != 'false') ? 120 : 60);
+
 if (window.displacementSprite.width != 1) {
     console.log('The depth map for this secretary is already loaded.');
     // The depth map is already loaded
@@ -164,7 +174,7 @@ if (window.displacementSprite.width != 1) {
         window.displacementFilter.uniforms.displacementMap = window.jiggledDepthMapRT.texture;
     });
     window.displacementSprite.texture.baseTexture.on('error', function() {
-        if (!triedUrl2 && window.isDepthAiEnabled != false) {
+        if (!triedUrl2 && localStorage.getItem('kantai3d.isDepthAiEnabled') != 'false') {
             triedUrl2 = true;
             loadDepthUrl(url2, chara);
         }
@@ -172,14 +182,14 @@ if (window.displacementSprite.width != 1) {
     });
 
     if (!window.displacementSprite.texture.baseTexture.isLoading) {
-        if (!triedUrl2 && window.isDepthAiEnabled != false) {
+        if (!triedUrl2 && localStorage.getItem('kantai3d.isDepthAiEnabled') != 'false') {
             triedUrl2 = true;
             loadDepthUrl(url2, chara);
         }
     }
 }
 }
-if (window.isDepthEnabled != false) {
+if (localStorage.getItem('kantai3d.isDepthEnabled') != 'false') {
     loadDepthUrl(url1, this._chara);
 } else {
     this._chara.filters = [];
