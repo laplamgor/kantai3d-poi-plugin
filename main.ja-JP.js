@@ -37,7 +37,7 @@ function patchMainJs(contents) {
     window.sound_options._toggle3d.position.set(-120, 150),
     window.sound_options._toggle3d_ai = new $2(),
     window.sound_options._toggle3d_ai.position.set(-120, 215),
-    window.sound_options._toggle3d_text = new PIXI.Text('120 FPS\\n\\nKantai3D v3.0\\n\\n追加の深度マップ', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 28, fill: '#ffffff'})),
+    window.sound_options._toggle3d_text = new PIXI.Text('120 FPS\\n\\nKantai3D v3.3\\n\\n追加の深度マップ', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 28, fill: '#ffffff'})),
     window.sound_options._toggle3d_text.position.set(-360, 88),
     window.sound_options._toggle3d_ai_text = new PIXI.Text('追加の深度マップはAIによって生成され、\\nカスタム手描き深度マップなしでCGに\\nよって使用されます。3D効果の品質は、\\n比較すると粗くなります。\\n\\n変更は、次回母港に戻ったときに有効に\\nなります。', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 18, fill: '#ffffff'})),
     window.sound_options._toggle3d_ai_text.position.set(-360, 290),
@@ -193,7 +193,6 @@ if (localStorage.getItem('kantai3d.isDepthEnabled') != 'false') {
     loadDepthUrl(url1, this._chara);
 } else {
     this._chara.filters = [];
-    window.currentChara.filters = [];
 }
 
 

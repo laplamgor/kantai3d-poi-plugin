@@ -38,7 +38,7 @@ function patchMainJs(contents) {
     window.sound_options._toggle3d.position.set(-120, 150),
     window.sound_options._toggle3d_ai = new $2(),
     window.sound_options._toggle3d_ai.position.set(-120, 215),
-    window.sound_options._toggle3d_text = new PIXI.Text('120 FPS\\n\\nKantai3D v3.0\\n\\n使用額外深度圖', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 28, fill: '#ffffff'})),
+    window.sound_options._toggle3d_text = new PIXI.Text('120 FPS\\n\\nKantai3D v3.3\\n\\n使用額外深度圖', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 28, fill: '#ffffff'})),
     window.sound_options._toggle3d_text.position.set(-360, 88),
     window.sound_options._toggle3d_ai_text = new PIXI.Text('額外深度圖由深度學習生成，\\n可以支持未有手繪深度圖的立繪。\\n但立體效果品質普遍較粗糙。\\n\\n變更會在下次返回母港時生效。', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 18, fill: '#ffffff'})),
     window.sound_options._toggle3d_ai_text.position.set(-360, 290),
@@ -194,7 +194,6 @@ if (localStorage.getItem('kantai3d.isDepthEnabled') != 'false') {
     loadDepthUrl(url1, this._chara);
 } else {
     this._chara.filters = [];
-    window.currentChara.filters = [];
 }
 
 
