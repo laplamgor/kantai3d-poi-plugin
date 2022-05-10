@@ -37,7 +37,7 @@ function patchMainJs(contents) {
     window.sound_options._toggle3d.position.set(-120, 150),
     window.sound_options._toggle3d_ai = new $2(),
     window.sound_options._toggle3d_ai.position.set(-120, 215),
-    window.sound_options._toggle3d_text = new PIXI.Text('120 FPS\\n\\nKantai3D v3.3\\n\\n追加の深度マップ', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 28, fill: '#ffffff'})),
+    window.sound_options._toggle3d_text = new PIXI.Text('120 FPS\\n\\nKantai3D v3.4\\n\\n追加の深度マップ', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 28, fill: '#ffffff'})),
     window.sound_options._toggle3d_text.position.set(-360, 88),
     window.sound_options._toggle3d_ai_text = new PIXI.Text('追加の深度マップはAIによって生成され、\\nカスタム手描き深度マップなしでCGに\\nよって使用されます。3D効果の品質は、\\n比較すると粗くなります。\\n\\n変更は、次回母港に戻ったときに有効に\\nなります。', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 18, fill: '#ffffff'})),
     window.sound_options._toggle3d_ai_text.position.set(-360, 290),
@@ -121,9 +121,11 @@ var url1 = window.displacementPath.replace(/resources\\/ship\\/full[_dmg]*\\/([0
 var url2 = window.displacementPath.replace(/resources\\/ship\\/full[_dmg]*\\/([0-9]*)_([0-9_a-z]*).png(\\?version=)?([0-9]*)/g, \"https://kantai3d.com/midas/$$1_$$2_v$$4.png\");
 var triedUrl2 = false;
 
+createjs.Ticker.setFPS((localStorage.getItem('kantai3d.is120Enabled') != 'false') ? 120 : 60);
+window.displacementFilter = PIXI.DepthPerspectiveFilter;
+
 const loadDepthUrl = function(url, chara) {
 window.displacementSprite = PIXI.Sprite.fromImage(url);
-window.displacementFilter = PIXI.DepthPerspectiveFilter;
 
 window.displacementFilter.uniforms.textureSize = {
     0: chara.texture.width,
@@ -136,7 +138,6 @@ window.displacementFilter.padding = 150;
 
 window.currentChara = chara;
 
-createjs.Ticker.setFPS((localStorage.getItem('kantai3d.is120Enabled') != 'false') ? 120 : 60);
 
 if (window.displacementSprite.width != 1) {
     console.log('The depth map for this secretary is already loaded.');
