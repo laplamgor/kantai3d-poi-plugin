@@ -34,7 +34,7 @@ Please only choose one of them to patch your game client.
 
 ⚠️This extension may interfere with other local file proxy tools such as KCCP.
 
-⚠️Duo to some [limitation of electron](https://github.com/electron/electron/issues/10478), this plugin conflicts with old versions of [poi-plugin-subtitle](https://github.com/kcwikizh/poi-plugin-subtitle). Please update the subtitle plugin to 1.3.1 or newer.
+⚠️Due to some [limitation of electron](https://github.com/electron/electron/issues/10478), this plugin conflicts with old versions of [poi-plugin-subtitle](https://github.com/kcwikizh/poi-plugin-subtitle). Please update the subtitle plugin to 1.3.1 or newer.
 
 ⚠️If you encounter any weird behavior, immediately stop using the extension and report the issue to me.
 
