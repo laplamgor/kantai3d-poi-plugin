@@ -25,17 +25,18 @@ function patchMainJs(contents) {
 
     contents = contents.toString();
 
-    contents = contents.replace(/(=.{0,20}\[.{0,20}\('.{0,20}'\)\]\(this\)\|\|this;return (.{0,20}\[.{0,20}\('.{0,20}'\)\]=new PIXI\[\(.{0,20}\('.{0,20}'\)\)\]\(\),){6}.{0,20}\[.{0,20}\('.{0,20}'\)\]=new .{0,20}\(\),.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\(0x4f,0xa4\),)/g,
+    contents = contents.replace(/(=[^,;=]{0,50}\(this\)\|\|this;return ([^,;=]{0,50}=new PIXI.{0,80},){6}[^,;=]{0,50}=new [^;=]{0,80}\((0x4f|79),(0xa4|164)\),)/g,
     `= window.sound_options $1`);
 
-    contents = contents.replace(/(=new )(.{0,20})(\(\),.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\(0x5a,0x18e\),)/g,
+
+    contents = contents.replace(/(=new )([^,;=]{0,20})(,[^,;=]{0,70}\((0x5a|90),(0x18e|398)\),)/g,
     `$1$2$3
 
-    window.sound_options._toggle120 = new $2(),
+    window.sound_options._toggle120 = new $2,
     window.sound_options._toggle120.position.set(-120, 85),
-    window.sound_options._toggle3d = new $2(),
+    window.sound_options._toggle3d = new $2,
     window.sound_options._toggle3d.position.set(-120, 150),
-    window.sound_options._toggle3d_ai = new $2(),
+    window.sound_options._toggle3d_ai = new $2,
     window.sound_options._toggle3d_ai.position.set(-120, 215),
     window.sound_options._toggle3d_text = new PIXI.Text('120 FPS\\n\\nKantai3D v3.4\\n\\n追加の深度マップ', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 28, fill: '#ffffff'})),
     window.sound_options._toggle3d_text.position.set(-360, 88),
@@ -51,32 +52,33 @@ function patchMainJs(contents) {
     window.sound_options.addChild(window.sound_options._toggle3d_ai_text),`);
 
 
-    contents = contents.replace(/(\(0x26,0x18e\),this\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\(0xc6,0x18e\),)/g,
+    contents = contents.replace(/(\((0x26|38),(0x18e|398)\),this[^,;=]{0,60}\((0xc6|198),(0x18e|398)\),)/g,
     `$1
     this._toggle120.initialize(),
     this._toggle3d.initialize(),
     this._toggle3d_ai.initialize(),`);
 
     
-    contents = contents.replace(/(function\(\)\{this\[.{0,20}\('.{0,20}'\)\]\(\)(,this\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\(\),this\[.{0,20}\('.{0,20}'\)\]=null){11};)/g,
+    contents = contents.replace(/(function\(\)\{[^=]{0,90},([^;=]{0,90}\(\),this[^=]{0,90}=null){11})([^,])/g,
     `$1
+    ;
     this._toggle120.dispose();
     this._toggle120 = null;
     this._toggle3d.dispose();
     this._toggle3d = null;
     this._toggle3d_ai.dispose();
-    this._toggle3d_ai = null;`);
+    this._toggle3d_ai = null; $3`);
 
         
-    contents = contents.replace(/(,.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\(\),0x0==this\[.{0,20}\('.{0,20}'\)\]&&0x0<.{0,20}?.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\(.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\):0x0<this\[.{0,20}\('.{0,20}'\)\]&&0x0)/g,
+    contents = contents.replace(/(,[^,;=]{0,70}\(\),0(x0)?==this[^,;=]{0,20}&&0(x0)?<[^,;=]{0,180}:0(x0)?<this[^,;=]{0,20}&&0(x0)?)/g,
     `,localStorage.setItem('kantai3d.is120Enabled', this._sound._toggle120.value), 
     localStorage.setItem('kantai3d.isDepthEnabled', this._sound._toggle3d.value), 
     localStorage.setItem('kantai3d.isDepthAiEnabled', this._sound._toggle3d_ai.value),
-    console.log(localStorage.getItem('kantai3d.is120Enabled'))
+    console.log(localStorage.getItem('kantai3d.is120Enabled')),
     createjs.Ticker.setFPS((localStorage.getItem('kantai3d.is120Enabled') != 'false') ? 120 : 60)
     $1`);
 
-    contents = contents.replace(/((null==this\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]&&\(this\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]=.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\),this\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]=.{0,20}\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\]\[.{0,20}\('.{0,20}'\)\],){2})/g,
+    contents = contents.replace(/((null==this[^,;=]{0,40}&&\(this[^,;=]{0,40}=[^,;=]{0,70}\),this[^,;=]{0,40}=[^,;=]{0,70},){2})/g,
     `$1
     this._toggle120.value = localStorage.getItem('kantai3d.is120Enabled') != 'false',
     this._toggle3d.value = localStorage.getItem('kantai3d.isDepthEnabled') != 'false',
@@ -95,24 +97,18 @@ function patchMainJs(contents) {
 
 
 
-    contents = contents.replace(/(return .{0,99}\!\=.{0,99}\|\|null\!\=\(.{0,99}\=.{0,99}\(.{0,99}\)\)&&\(.{0,99}\='_'\+.{0,99}\),.{0,99}\+\(.{0,99}\+.{0,99}\+'\/'\+\(.{0,99}\+.{0,99}\(.{0,99},.{0,99}\)\)\+'_'\+.{0,99}\+.{0,99}\+.{0,99}\+.{0,99}\(0x0,parseInt\(.{0,99}\)\)\);)/g, 
+    contents = contents.replace(/(return[^,;=]{0,20}\!\=[^,;=]{0,10}\|\|null\!\=\([^,;=]{0,10}\=[^,;=]{0,100}\)&&\([^,;=]{0,10}\=("_"|'_')\+[^,;=]{0,30}\),[^,;=]{0,70}\+\([^,;=]{0,70}\+[^,;=]{0,10}\+("\/"|'\/')\+\([^,;=]{0,20}\+[^,;=]{0,30}\([^,;=]{0,20},[^,;=]{0,20}\)\)\+("_"|'_')\+[^,;=]{0,20}\+[^,;=]{0,20}\+[^,;=]{0,20}\+[^,;=]{0,60}\(0(x0)?,parseInt\([^,;=]{0,20}\)\)\);?)/g, 
         "\n return window.displacementPath = (function () {\n$1\n})();\n");
 
 
-    contents = contents.replace(/(new PIXI\[.{0,99}\]\(.{0,99}\[.{0,99}\]\[.{0,99}\],.{0,99},.{0,99}\);document)/g, 
+    contents = contents.replace(/(new PIXI[^,;=]{0,20}\([^,;=]{0,70},[^,;=]{0,60},[^,;=]{0,20}\);document)/g, 
         "\n window.pixiApp = $1");
 
-    contents = contents.replace(/(\=[^=]{0,99}\[[^\[]{0,99}\]\[[^\[]{0,99}\]\([^\(]{0,99}\),[^,]{0,99}\=0x0\=\=.{0,99}\?0x0\:.{0,99},.{0,99}\=.{0,99}\[.{0,99}\]\[.{0,99}\]\[.{0,99}\]\(.{0,99}\);)/g, 
-        "\n = window.charar $1");
+    contents = contents.replace(/(\=[^,;=]{0,70},[^,;=]{0,20}\=0(x0)?\=\=[^,;=]{0,20}\?0(x0)?\:[^,;=]{0,20},[^,;=]{0,20}\=.{0,500}\((0x1eb,-0x58|491,-88)\);var [^=]{0,99}=)/g, 
+        "\n = window.charar $1 window.charal = \n");
 
-    contents = contents.replace(/(var .{0,99}\=new PIXI\[\(.{0,99}\)\]\(.{0,99}\);this\[.{0,99}\]\=.{0,99}\[.{0,99}\]\[.{0,99}\]\[.{0,99}\]\[.{0,99}\]\[.{0,99}\]\(.{0,99}\),this\[.{0,99}\]\[.{0,99}]\[.{0,99}\]\(.{0,99},\-.{0,99}\);var [^=]{0,99}=)/g, 
-        "$1 window.charal = \n");
-
-    contents = contents.replace(/(\=[^=]{0,99}\[[^=]{0,99}\]\[[^=]{0,99}\]\[.{0,99}\]\[.{0,99}\]\(.{0,99}\)\[.{0,99}\]\(.{0,99}\);this\[.{0,99}\]\[.{0,99}\]\[.{0,99}\]\(\-.{0,99}\+.{0,99}\['x'\]\+.{0,99},\-.{0,99}\+.{0,99}\['y'\]\),)/g, 
-        "\n = window.charah $1");
-
-    contents = contents.replace(/(\['y'\]\),this\[.{0,99}\('.{0,99}'\)\]\[.{0,99}\('.{0,99}'\)\]\(.{0,99}\+.{0,99},.{0,99}\-.{0,99}\);)/g, 
-        "$1 " + `
+    contents = contents.replace(/(\=[^,;=]{0,40}\([^,;=]{0,20}\)[^,;=]{0,30}\([^,;=]{0,60}\);this[^,;=]{0,70}\-[^,;=]{0,70}\+[^,;=]{0,20}x[^,;=]{0,20}\+[^,;=]{0,20},\-[^,;=]{0,40}y[^,;=]{0,20},this[^,;=]{0,50}\((0x1eb|491)\+[^,;=]{0,20},[^,;=]{0,20}\-(0x58|88)\);?)(})/g, 
+    `\n = window.charah $1 
 window.portOffset = -window.charal + window.charah.x;//-l+h.x
 window.portOffsetR = window.charar;//r
 
@@ -263,18 +259,14 @@ function prepareJiggle(baseMap, depthMap) {
     window.My = null;
     window.Mx2 = null;
     window.My2 = null;
-}
-`);
+} 
+$4`);
 
-    contents = contents.replace(/(\=Math\[.{0,99}\]\(.{0,99}\),.{0,99}\=0x1\+0\.012\*\(0\.5\+0\.5\*.{0,99}\);this\[.{0,99}\]\[.{0,99}\]\(.{0,99}\),)/g, 
-        "\n = window.charasin $1");
-
-    contents = contents.replace(/(this\['y'\]=this\[.{0,99}\('.{0,99}'\)]-1.5\*.{0,99}\*1.8;)/g, 
-        `$1
-
+    contents = contents.replace(/(\=Math[^,;=]{0,40},[^,;=]{0,30}\=(0x)?1\+(0)?\.012[^,;=]{0,10}\*\(.{0,29}\);this[^,;=]{0,90}\([^,;=]{0,90}\),this(\.y|\['y'\])=this[^,;=]{0,20}-1.5\*[^,;=]{0,40}\*1.8;?)/g, 
+        ` = window.charasin $1 ;
 window.displacementFilter.uniforms.textureScale = this.scale.x;
-
 `);
+
 
     return contents + `;
 
