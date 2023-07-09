@@ -38,7 +38,7 @@ function patchMainJs(contents) {
     window.sound_options._toggle3d.position.set(-120, 150),
     window.sound_options._toggle3d_ai = new $2,
     window.sound_options._toggle3d_ai.position.set(-120, 215),
-    window.sound_options._toggle3d_text = new PIXI.Text('120 FPS\\n\\nKantai3D v3.4\\n\\n使用額外深度圖', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 28, fill: '#ffffff'})),
+    window.sound_options._toggle3d_text = new PIXI.Text('120 FPS\\n\\nKantai3D V3.6\\n\\n使用額外深度圖', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 28, fill: '#ffffff'})),
     window.sound_options._toggle3d_text.position.set(-360, 88),
     window.sound_options._toggle3d_ai_text = new PIXI.Text('額外深度圖由深度學習生成，\\n可以支持未有手繪深度圖的立繪。\\n但立體效果品質普遍較粗糙。\\n\\n變更會在下次返回母港時生效。', new PIXI.TextStyle({fontFamily: "Georgia", fontSize: 18, fill: '#ffffff'})),
     window.sound_options._toggle3d_ai_text.position.set(-360, 290),
@@ -70,7 +70,7 @@ function patchMainJs(contents) {
     this._toggle3d_ai = null; $3`);
 
         
-    contents = contents.replace(/(,[^,;=]{0,70}\(\),0(x0)?==this[^,;=]{0,20}&&0(x0)?<[^,;=]{0,180}:0(x0)?<this[^,;=]{0,20}&&0(x0)?)/g,
+    contents = contents.replace(/(,[^,;=]{0,70}\(\),0(x0)?==this[^,;=]{0,20}&&0(x0)?<[^,;=]{0,2000}:0(x0)?<this[^,;=]{0,20}&&0(x0)?)/g,
     `,localStorage.setItem('kantai3d.is120Enabled', this._sound._toggle120.value), 
     localStorage.setItem('kantai3d.isDepthEnabled', this._sound._toggle3d.value), 
     localStorage.setItem('kantai3d.isDepthAiEnabled', this._sound._toggle3d_ai.value),
@@ -97,7 +97,7 @@ function patchMainJs(contents) {
 
 
 
-    contents = contents.replace(/(return[^,;=]{0,20}\!\=[^,;=]{0,10}\|\|null\!\=\([^,;=]{0,10}\=[^,;=]{0,100}\)&&\([^,;=]{0,10}\=("_"|'_')\+[^,;=]{0,30}\),[^,;=]{0,70}\+\([^,;=]{0,70}\+[^,;=]{0,10}\+("\/"|'\/')\+\([^,;=]{0,20}\+[^,;=]{0,30}\([^,;=]{0,20},[^,;=]{0,20}\)\)\+("_"|'_')\+[^,;=]{0,20}\+[^,;=]{0,20}\+[^,;=]{0,20}\+[^,;=]{0,60}\(0(x0)?,parseInt\([^,;=]{0,20}\)\)\);?)/g, 
+    contents = contents.replace(/(return[^,;=]{0,30}\=[^,;=]{0,30}[^,;=]{0,20}\!\=[^,;=]{0,10}\|\|null\!\=\([^,;=]{0,10}\=[^,;=]{0,100}\)&&\([^,;=]{0,10}\=("_"|'_')\+[^,;=]{0,30}\),[^,;=]{0,70}\+\([^,;=]{0,70}\+[^,;=]{0,10}\+("\/"|'\/')\+\([^,;=]{0,20}\+[^,;=]{0,30}\([^,;=]{0,20},[^,;=]{0,20}\)\)\+("_"|'_')\+[^,;=]{0,20}\+[^,;=]{0,20}\+[^,;=]{0,20}\+[^,;=]{0,60}\(0(x0)?,parseInt\([^,;=]{0,20}\)\)\);?)/g, 
         "\n return window.displacementPath = (function () {\n$1\n})();\n");
 
 
@@ -107,7 +107,7 @@ function patchMainJs(contents) {
     contents = contents.replace(/(\=[^,;=]{0,70},[^,;=]{0,20}\=0(x0)?\=\=[^,;=]{0,20}\?0(x0)?\:[^,;=]{0,20},[^,;=]{0,20}\=.{0,500}\((0x1eb,-0x58|491,-88)\);var [^=]{0,99}=)/g, 
         "\n = window.charar $1 window.charal = \n");
 
-    contents = contents.replace(/(\=[^,;=]{0,40}\([^,;=]{0,20}\)[^,;=]{0,30}\([^,;=]{0,60}\);this[^,;=]{0,70}\-[^,;=]{0,70}\+[^,;=]{0,20}x[^,;=]{0,20}\+[^,;=]{0,20},\-[^,;=]{0,40}y[^,;=]{0,20},this[^,;=]{0,50}\((0x1eb|491)\+[^,;=]{0,20},[^,;=]{0,20}\-(0x58|88)\);?)(})/g, 
+    contents = contents.replace(/(\=[^,;=]{0,40}\([^,;=]{0,20}\)[^,;=]{0,30}\([^,;=]{0,60}\);this[^,;=]{0,70}\-[^,;=]{0,70}\+[^,;=]{0,20}x[^,;=]{0,20}\+[^,;=]{0,20},\-[^,;=]{0,40}y[^,;=]{0,20},[^,;=]{0,200},[^,;=]{0,10}-(0x58|88)\)[^;]{0,200};?)(})/g, 
     `\n = window.charah $1 
 window.portOffset = -window.charal + window.charah.x;//-l+h.x
 window.portOffsetR = window.charar;//r
@@ -260,7 +260,7 @@ function prepareJiggle(baseMap, depthMap) {
     window.Mx2 = null;
     window.My2 = null;
 } 
-$4`);
+$3`);
 
     contents = contents.replace(/(\=Math[^,;=]{0,40},[^,;=]{0,30}\=(0x)?1\+(0)?\.012[^,;=]{0,10}\*\(.{0,29}\);this[^,;=]{0,90}\([^,;=]{0,90}\),this(\.y|\['y'\])=this[^,;=]{0,20}-1.5\*[^,;=]{0,40}\*1.8;?)/g, 
         ` = window.charasin $1 ;
