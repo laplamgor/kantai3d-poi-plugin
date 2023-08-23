@@ -4,12 +4,9 @@ import i18next from 'views/env-parts/i18next'
 const { session } = electron.remote
 const path = require('path')
 
-
 // Only block the main.js when the request has version number query (by original code)
 // Do not block the main.js when the request has no version number query (by patcher)
 const filter = { urls: ['*://*/kcs2/js/main.js?*'] }
-
-
 
 export const
 
@@ -26,7 +23,6 @@ export const
             });
 
         session.defaultSession.protocol.interceptFileProtocol('k3d', (request, callback) => {
-            
             callback({ path: path.join(__dirname, i18next.t('main', { ns: 'poi-plugin-kantai3d' }) + '.js') })
         })
 
