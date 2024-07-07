@@ -1,6 +1,6 @@
 {
   "name": "poi-plugin-kantai3d",
-  "version": "3.7.0",
+  "version": "3.8.0",
   "description": "A poi plugin to add 3D effects and jiggle physics to your secretaries.",
   "main": "index.es",
   "scripts": {

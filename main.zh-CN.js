@@ -19,13 +19,14 @@ function patchMainJs(contents) {
     contents = contents.toString();
     var oldContents = contents;
     var oldlength = contents.length;
-    var version = '3.7';
+    var version = '3.8';
     var error_text = ' - 发生错误。 Kantai3D 目前不可用。 请等待开发者更新插件。';
     var setting_text1 = '120 FPS\\n\\nKantai3D V' + version + '\\n\\n使用额外深度图';
     var setting_text2 = '额外深度图由深度学习生成，\\n可以支持未有手绘深度图的立绘。\\n但立体效果品质普遍较粗糙。\\n\\n变更会在下次返回母港时生效。';
 
+
     contents = contents.replace(/(=[^,;=]{0,50}\(this\)\|\|this;return ([^,;=]{0,50}=new PIXI.{0,80},){6}[^,;=]{0,50}=new [^;=]{0,80}\((0x4f|79),(0xa4|164)\),)/g,
-        `= window.sound_options $1`);
+    `= window.sound_options $1`);
     if (contents.length == oldlength) {
         alert('A' + error_text);
         return oldContents;
@@ -35,7 +36,7 @@ function patchMainJs(contents) {
 
 
     contents = contents.replace(/(=new )([^,;=]{0,20})(,[^,;=]{0,70}\((0x5a|90),(0x18e|398)\),)/g,
-        `$1$2$3
+    `$1$2$3
 
     window.sound_options._toggle120 = new $2,
     window.sound_options._toggle120.position.set(-120, 85),
@@ -63,7 +64,7 @@ function patchMainJs(contents) {
     }
 
     contents = contents.replace(/(\((0x26|38),(0x18e|398)\),this[^,;=]{0,60}\((0xc6|198),(0x18e|398)\),)/g,
-        `$1
+    `$1
     this._toggle120.initialize(),
     this._toggle3d.initialize(),
     this._toggle3d_ai.initialize(),`);
@@ -74,9 +75,9 @@ function patchMainJs(contents) {
         oldlength = contents.length;
     }
 
-
-    contents = contents.replace(/(function\(\)\{[^=]{0,90},([^;=]{0,90}\(\),this[^=]{0,90}=null){11})([^,])/g,
-        `$1
+    
+    contents = contents.replace(/(function\(\)\{[^{]{0,90},([^;=]{0,90}\(\),this[^=]{0,90}=null){11})([^,])/g,
+    `$1
     ;
     this._toggle120.dispose();
     this._toggle120 = null;
@@ -91,10 +92,10 @@ function patchMainJs(contents) {
         oldlength = contents.length;
     }
 
-
-    contents = contents.replace(/(,[^,;=]{0,70}\(\),0(x0)?==this[^,;=]{0,20}&&0(x0)?<[^,;=]{0,2000}:0(x0)?<this[^,;=]{0,20}&&0(x0)?)/g,
-        `,localStorage.setItem('kantai3d.is120Enabled', this._sound._toggle120.value), 
-    localStorage.setItem('kantai3d.isDepthEnabled', this._sound._toggle3d.value), 
+        
+    contents = contents.replace(/(,[^,]{0,299}>0x0&&0x0==[^,;=]{0,99}&&[^,;=]{0,90};var)/g,
+    `,localStorage.setItem('kantai3d.is120Enabled', this._sound._toggle120.value),
+    localStorage.setItem('kantai3d.isDepthEnabled', this._sound._toggle3d.value),
     localStorage.setItem('kantai3d.isDepthAiEnabled', this._sound._toggle3d_ai.value),
     console.log(localStorage.getItem('kantai3d.is120Enabled')),
     createjs.Ticker.setFPS((localStorage.getItem('kantai3d.is120Enabled') != 'false') ? 120 : 60)
@@ -107,7 +108,7 @@ function patchMainJs(contents) {
     }
 
     contents = contents.replace(/((null==this[^,;=]{0,40}&&\(this[^,;=]{0,40}=[^,;=]{0,70}\),this[^,;=]{0,40}=[^,;=]{0,70},){2})/g,
-        `$1
+    `$1
     this._toggle120.value = localStorage.getItem('kantai3d.is120Enabled') != 'false',
     this._toggle3d.value = localStorage.getItem('kantai3d.isDepthEnabled') != 'false',
     this._toggle3d_ai.value = localStorage.getItem('kantai3d.isDepthAiEnabled') != 'false',
@@ -120,6 +121,8 @@ function patchMainJs(contents) {
         oldlength = contents.length;
     }
 
+    
+    
 
 
 
@@ -129,9 +132,7 @@ function patchMainJs(contents) {
 
 
 
-
-
-    contents = contents.replace(/(return[^,;=]{0,30}\=[^,;=]{0,30}[^,;=]{0,20}\!\=[^,;=]{0,10}\|\|null\!\=\([^,;=]{0,10}\=[^,;=]{0,100}\)&&\([^,;=]{0,10}\=("_"|'_')\+[^,;=]{0,30}\),[^,;=]{0,70}\+\([^,;=]{0,70}\+[^,;=]{0,10}\+("\/"|'\/')\+\([^,;=]{0,20}\+[^,;=]{0,30}\([^,;=]{0,20},[^,;=]{0,20}\)\)\+("_"|'_')\+[^,;=]{0,20}\+[^,;=]{0,20}\+[^,;=]{0,20}\+[^,;=]{0,60}\(0(x0)?,parseInt\([^,;=]{0,20}\)\)\);?)/g,
+    contents = contents.replace(/(return.{0,999}\(0(x0)?,parseInt\([^,;=]{0,20}\)\)\);?)/g, 
         "\n return window.displacementPath = (function () {\n$1\n})();\n");
     if (contents.length == oldlength) {
         alert('G' + error_text);
@@ -141,7 +142,7 @@ function patchMainJs(contents) {
     }
 
 
-    contents = contents.replace(/(new PIXI[^,;=]{0,20}\([^,;=]{0,70},[^,;=]{0,60},[^,;=]{0,20}\);document)/g,
+    contents = contents.replace(/(new PIXI[^,;=]{0,20}\([^,;=]{0,70},[^,;=]{0,60},[^,;=]{0,20}\);document)/g, 
         "\n window.pixiApp = $1");
     if (contents.length == oldlength) {
         alert('H' + error_text);
@@ -150,8 +151,8 @@ function patchMainJs(contents) {
         oldlength = contents.length;
     }
 
-    contents = contents.replace(/(\=[^,;=]{0,200},[^,;=]{0,200}\=0(x0)?\=\=[^,;=]{0,200}\?0(x0)?\:[^:]*\:[^:]*,[^,;=]{0,200}\=.{0,500}\((0x1eb,-0x58|491,-88)\);var [^=]{0,99}=)/g,
-        "\n = window.charar $1 window.charal = \n");
+    contents = contents.replace(/(var[^=]{0,19}=[^=]{0,29},[^=]{0,39}=[^=]{0,99},[^=]{0,99})(=.{0,99}0x0.{0,99}0x0.{0,99}PIXI.{0,999}\((0x1eb,-0x58|491,-88)\);var [^=]{0,99}=)/g, 
+        "\n $1 = window.charar $2 window.charal = \n");
     if (contents.length == oldlength) {
         alert('I' + error_text);
         return oldContents;
@@ -159,8 +160,8 @@ function patchMainJs(contents) {
         oldlength = contents.length;
     }
 
-    contents = contents.replace(/(\=[^,;=]{0,40}\([^,;=]{0,20}\)[^,;=]{0,30}\([^,;=]{0,60}\);this[^,;=]{0,70}\-[^,;=]{0,70}\+[^,;=]{0,20}x[^,;=]{0,20}\+[^,;=]{0,20},\-[^,;=]{0,40}y[^,;=]{0,20},[^,;=]{0,200},[^,;=]{0,10}-(0x58|88)\)[^;]{0,200};?)(})/g,
-        `\n = window.charah $1 
+    contents = contents.replace(/(\/0x2.{0,99}\/0x2,[^,;=]{0,99})(\=.{0,999}-(0x58|88)[^;]{0,200};?)(})/g,
+    `\n $1 = window.charah $2 
 window.portOffset = -window.charal + window.charah.x;//-l+h.x
 window.portOffsetR = window.charar;//r
 
@@ -312,7 +313,7 @@ function prepareJiggle(baseMap, depthMap) {
     window.Mx2 = null;
     window.My2 = null;
 } 
-$3`);
+$4`);
     if (contents.length == oldlength) {
         alert('J' + error_text);
         return oldContents;
@@ -320,7 +321,7 @@ $3`);
         oldlength = contents.length;
     }
 
-    contents = contents.replace(/(\=Math[^,;=]{0,40},[^,;=]{0,30}\=(0x)?1\+(0)?\.012[^,;=]{0,10}\*\(.{0,29}\);this[^,;=]{0,90}\([^,;=]{0,90}\),this(\.y|\['y'\])=this[^,;=]{0,20}-1.5\*[^,;=]{0,40}\*1.8;?)/g,
+    contents = contents.replace(/(\=Math[^,;=]{0,40},[^,;=]{0,30}\=(0x)?1\+(0)?\.012[^,;=]{0,10}\*\(.{0,29}\);this[^,;=]{0,90}\([^,;=]{0,90}\),this(\.y|\['y'\])=this[^,;=]{0,20}-1.5\*[^,;=]{0,40}\*1.8;?)/g, 
         ` = window.charasin $1 ;
 window.displacementFilter.uniforms.textureScale = this.scale.x;
 `);
