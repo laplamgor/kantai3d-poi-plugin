@@ -19,7 +19,7 @@ function patchMainJs(contents) {
     contents = contents.toString();
     var oldContents = contents;
     var oldlength = contents.length;
-    var version = '3.8';
+    var version = '3.9';
     var error_text = ' - 发生错误。 Kantai3D 目前不可用。 请等待开发者更新插件。';
     var setting_text1 = '120 FPS\\n\\nKantai3D V' + version + '\\n\\n使用额外深度图';
     var setting_text2 = '额外深度图由深度学习生成，\\n可以支持未有手绘深度图的立绘。\\n但立体效果品质普遍较粗糙。\\n\\n变更会在下次返回母港时生效。';
@@ -132,8 +132,8 @@ function patchMainJs(contents) {
 
 
 
-    contents = contents.replace(/(return.{0,999}\(0(x0)?,parseInt\([^,;=]{0,20}\)\)\);?)/g, 
-        "\n return window.displacementPath = (function () {\n$1\n})();\n");
+    contents = contents.replace(/\}(return.{0,599}\(0(x0)?,parseInt\([^,;=]{0,20}\)\)\))/g, 
+        "\n } return window.displacementPath = (function () {\n$1\n})();\n");
     if (contents.length == oldlength) {
         alert('G' + error_text);
         return oldContents;

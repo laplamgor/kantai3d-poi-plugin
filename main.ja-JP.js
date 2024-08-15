@@ -19,7 +19,7 @@ function patchMainJs(contents) {
     contents = contents.toString();
     var oldContents = contents;
     var oldlength = contents.length;
-    var version = '3.8';
+    var version = '3.9';
     var error_text = ' - エラーが発生します。 Kantai3D は現在利用できません。 開発者がプラグインを更新するまでお待ちください。';
     var setting_text1 = '120 FPS\\n\\nKantai3D V' + version + '\\n\\n追加の深度マップ';
     var setting_text2 = '追加の深度マップはAIによって生成され、\\nカスタム手描き深度マップなしでCGに\\nよって使用されます。3D効果の品質は、\\n比較すると粗くなります。\\n\\n変更は、次回母港に戻ったときに有効に\\nなります。';
@@ -131,8 +131,8 @@ function patchMainJs(contents) {
 
 
 
-    contents = contents.replace(/(return.{0,999}\(0(x0)?,parseInt\([^,;=]{0,20}\)\)\);?)/g, 
-        "\n return window.displacementPath = (function () {\n$1\n})();\n");
+    contents = contents.replace(/\}(return.{0,599}\(0(x0)?,parseInt\([^,;=]{0,20}\)\)\))/g, 
+        "\n } return window.displacementPath = (function () {\n$1\n})();\n");
     if (contents.length == oldlength) {
         alert('G' + error_text);
         return oldContents;
